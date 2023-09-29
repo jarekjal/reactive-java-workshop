@@ -40,6 +40,17 @@ public class Exercise1 {
                 .map(User::getFirstName).forEach(System.out::println);
         System.out.println();
 
+        // another solution
+        StreamSources.intNumbersStream()
+                .flatMap(id -> StreamSources.userStream().filter(user -> user.getId() == id))
+                .map(User::getFirstName).forEach(System.out::println);
+        System.out.println();
+
+        //yet another solution
+        StreamSources.userStream()
+                .filter(u -> StreamSources.intNumbersStream().anyMatch(i -> u.getId() == i))
+                .map(User::getFirstName)
+                .forEach(System.out::println);
     }
 
 }
